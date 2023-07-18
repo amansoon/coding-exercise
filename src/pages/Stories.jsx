@@ -3,12 +3,14 @@ import StoriesList from "../components/StoriesList";
 import Layout from "../components/Layout";
 import { NavLink, useSearchParams } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+
 function Stories() {
-  const [stories, setStories] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const { stories, totalPages, currentPage } = useSelector((state) => state.stories);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const url = `https://content.guardianapis.com/search?api-key=${"test"}&q=${query}&show-fields=thumbnail,headline&show-tags=keyword&page=${currentPage}&page-size=10`;
@@ -20,8 +22,8 @@ function Stories() {
         const result = data.response;
         console.log(result);
         if (result.status === "ok") {
-          setStories(result.results);
-          setTotalPages(result.pages)
+          console.log(result);
+          dispatch({ type: "stories/setPage", payload: { stories: result.results, totalPages: result.pages } });
         }
       })
       .catch((err) => {
@@ -40,14 +42,14 @@ function Stories() {
       <div className="pagination">
         <button
           className="pagination__btn"
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => dispatch({ type: "stories/setCurrentPage", payload: currentPage - 1 })}
           disabled={currentPage === 1}
         >
           Previous
         </button>
         <button
           className="pagination__btn"
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => dispatch({ type: "stories/setCurrentPage", payload: currentPage + 1 })}
           disabled={currentPage >= totalPages}
         >
           Next

@@ -15,7 +15,7 @@ function StoryItem({ story }) {
         </h3>
         <div className="story__keyword-list">
           {tags.map((tag, index) => (
-            <NavLink className="story__keyword" to={`/search/${tag.webTitle.toLowerCase().replace(" ", "-")}`} key={index}>
+            <NavLink className="story__keyword" to={`/stories?q=${tag.webTitle}`} key={index}>
               {tag.webTitle}
             </NavLink>
           ))}

@@ -21,6 +21,7 @@ function Stories() {
         console.log(result);
         if (result.status === "ok") {
           setStories(result.results);
+          setTotalPages(result.pages)
         }
       })
       .catch((err) => {
@@ -47,7 +48,7 @@ function Stories() {
         <button
           className="pagination__btn"
           onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={totalPages > currentPage}
+          disabled={currentPage >= totalPages}
         >
           Next
         </button>

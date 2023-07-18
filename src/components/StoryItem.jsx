@@ -14,8 +14,8 @@ function StoryItem({ story }) {
           <NavLink to={webUrl} className={'story__title-link'}> {webTitle} </NavLink>
         </h3>
         <div className="story__keyword-list">
-          {tags.map((tag) => (
-            <NavLink className="story__keyword" to={`/search/${tag.webTitle.toLowerCase().replace(" ", "-")}`}>
+          {tags.map((tag, index) => (
+            <NavLink className="story__keyword" to={`/search/${tag.webTitle.toLowerCase().replace(" ", "-")}`} key={index}>
               {tag.webTitle}
             </NavLink>
           ))}

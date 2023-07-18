@@ -6,6 +6,7 @@ import { NavLink, useSearchParams } from "react-router-dom";
 function Stories() {
   const [stories, setStories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
 
@@ -19,7 +20,7 @@ function Stories() {
         const result = data.response;
         console.log(result);
         if (result.status === "ok") {
-          setStories([...stories, ...result.results]);
+          setStories(result.results);
         }
       })
       .catch((err) => {
@@ -31,15 +32,23 @@ function Stories() {
     <Layout>
       <div className="page__title">
         <h2 className="stories-title">
-          Results for <span className="stories-search-text"> Business </span>
+          Results for <span className="stories-search-text"> {query} </span>
         </h2>
       </div>
       <StoriesList stories={stories} />
       <div className="pagination">
-        <button className="pagination__btn" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+        <button
+          className="pagination__btn"
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
-        <button className="pagination__btn" onClick={() => setCurrentPage(currentPage + 1)}>
+        <button
+          className="pagination__btn"
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={totalPages > currentPage}
+        >
           Next
         </button>
       </div>

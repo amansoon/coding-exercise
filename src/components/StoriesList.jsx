@@ -6,7 +6,7 @@ function StoriesList({ stories }) {
     <div className="stories-list">
       {stories.length > 0 ? (
         stories.map((story, index) => {
-          return <StoryItem story={story} />;
+          return <StoryItem story={story} key={index} />;
         })
       ) : (
         <div> Empty List </div>

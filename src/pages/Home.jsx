@@ -36,8 +36,7 @@ function Home() {
               onChange={(e) => setText(e.target.value)}
             />
             <button className="form__btn" type="submit">
-              {" "}
-              Search{" "}
+              Search
             </button>
           </form>
         </div>

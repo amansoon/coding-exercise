@@ -31,7 +31,7 @@ function Stories() {
     <Layout>
       <div className="page__title">
         <h2 className="stories-title">
-          Results for <span className="stories-search-text"> Business </span>
+          Results for <span className="stories-search-text"> {query} </span>
         </h2>
       </div>
       <StoriesList stories={stories} />
